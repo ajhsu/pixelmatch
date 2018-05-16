@@ -115,9 +115,12 @@ function antialiased(img, x1, y1, width, height, img2) {
 
 function colorDelta(img1, img2, k, m, yOnly) {
     var a1 = img1[k + 3] / 255,
-        a2 = img2[m + 3] / 255,
+        a2 = img2[m + 3] / 255;
 
-        r1 = blend(img1[k + 0], a1),
+    // Ignore comparing transparent pixels
+    if (a1 == 0 || a2 == 0) return 0;
+
+    var r1 = blend(img1[k + 0], a1),
         g1 = blend(img1[k + 1], a1),
         b1 = blend(img1[k + 2], a1),
 
